@@ -1,5 +1,9 @@
 # django_custom_auth_app
 
+# 参考コード
+
+* https://github.com/haruyasu/django-custom-auth
+
 # ホーム画面
 
 * http://127.0.0.1:8000/
