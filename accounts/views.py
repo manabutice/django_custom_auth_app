@@ -2,7 +2,14 @@ from django.views import View
 from accounts.models import CustomUser
 from accounts.forms import ProfileForm
 from django.shortcuts import render, redirect
+from allauth.account.views import LoginView as AllauthLoginView
 
+class LoginView(AllauthLoginView):
+    template_name = 'accounts/login.html'
+
+class ProfileView(View):
+    # プロファイル表示用のビューを実装する
+    pass
 
 class ProfileEditView(View):
     def get(self, request, *args, **kwargs):

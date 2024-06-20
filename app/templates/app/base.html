@@ -20,9 +20,15 @@
           <li class="nav-item">
             <a class="nav-link" href="/">ホーム</a>
           </li>
+          {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'profile' %}">プロフィール</a>
           </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'account_login' %}">ログイン</a>
+          </li>
+          {% endif %}
         </ul>
       </div>
     </nav>
