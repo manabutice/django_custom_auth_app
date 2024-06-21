@@ -2,6 +2,7 @@ from django.views import View
 from accounts.models import CustomUser
 from accounts.forms import ProfileForm
 from django.shortcuts import render, redirect
+from django.contrib.auth import views as auth_views
 from allauth.account.views import LoginView as AllauthLoginView
 
 class LoginView(AllauthLoginView):
@@ -10,6 +11,13 @@ class LoginView(AllauthLoginView):
 class ProfileView(View):
     # プロファイル表示用のビューを実装する
     pass
+class LogoutView(auth_views.LogoutView):
+    template_name = 'accounts/logout.html'
+
+    def post(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            self.logout()
+        return redirect('/')
 
 class ProfileEditView(View):
     def get(self, request, *args, **kwargs):
