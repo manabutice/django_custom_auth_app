@@ -1,23 +1,8 @@
 from django.views import View
 from accounts.models import CustomUser
-from accounts.forms import ProfileForm
+from accounts.forms import ProfileForm, SignupUserForm # 追加
 from django.shortcuts import render, redirect
-from django.contrib.auth import views as auth_views
-from allauth.account.views import LoginView as AllauthLoginView
-
-class LoginView(AllauthLoginView):
-    template_name = 'accounts/login.html'
-
-class ProfileView(View):
-    # プロファイル表示用のビューを実装する
-    pass
-class LogoutView(auth_views.LogoutView):
-    template_name = 'accounts/logout.html'
-
-    def post(self, *args, **kwargs):
-        if self.request.user.is_authenticated:
-            self.logout()
-        return redirect('/')
+from allauth.account import views
 
 class ProfileEditView(View):
     def get(self, request, *args, **kwargs):
@@ -48,3 +33,25 @@ class ProfileEditView(View):
         return render(request, 'accounts/profile.html', {
             'form': form
         })
+class ProfileView(View):
+    def get(self, request, *args, **kwargs):
+        user_data = CustomUser.objects.get(id=request.user.id)
+
+        return render(request, 'accounts/profile.html', {
+            'user_data': user_data,
+        })
+class LoginView(views.LoginView):
+    template_name = 'accounts/login.html'
+
+
+class LogoutView(views.LogoutView):
+    template_name = 'accounts/logout.html'
+
+    def post(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            self.logout()
+        return redirect('/')
+
+class SignupView(views.SignupView):
+    template_name = 'accounts/signup.html'
+    form_class = SignupUserForm
