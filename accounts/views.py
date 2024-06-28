@@ -1,10 +1,39 @@
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 from accounts.models import CustomUser
-from accounts.forms import ProfileForm, SignupUserForm # 追加
+from accounts.forms import ProfileForm, SignupUserForm
 from django.shortcuts import render, redirect
 from allauth.account import views
 
-class ProfileEditView(View):
+
+class SignupView(views.SignupView):
+    template_name = 'accounts/signup.html'
+    form_class = SignupUserForm
+
+
+class LoginView(views.LoginView):
+    template_name = 'accounts/login.html'
+
+
+class LogoutView(views.LogoutView):
+    template_name = 'accounts/logout.html'
+
+    def post(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            self.logout()
+        return redirect('/')
+
+
+class ProfileView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        user_data = CustomUser.objects.get(id=request.user.id)
+
+        return render(request, 'accounts/profile.html', {
+            'user_data': user_data,
+        })
+
+
+class ProfileEditView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         user_data = CustomUser.objects.get(id=request.user.id)
         form = ProfileForm(
@@ -33,25 +62,3 @@ class ProfileEditView(View):
         return render(request, 'accounts/profile.html', {
             'form': form
         })
-class ProfileView(View):
-    def get(self, request, *args, **kwargs):
-        user_data = CustomUser.objects.get(id=request.user.id)
-
-        return render(request, 'accounts/profile.html', {
-            'user_data': user_data,
-        })
-class LoginView(views.LoginView):
-    template_name = 'accounts/login.html'
-
-
-class LogoutView(views.LogoutView):
-    template_name = 'accounts/logout.html'
-
-    def post(self, *args, **kwargs):
-        if self.request.user.is_authenticated:
-            self.logout()
-        return redirect('/')
-
-class SignupView(views.SignupView):
-    template_name = 'accounts/signup.html'
-    form_class = SignupUserForm

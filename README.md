@@ -1,8 +1,22 @@
 # django_custom_auth_app
 
-# 参考コード
+# 参考コード カスタムユーザー
 
 * https://github.com/haruyasu/django-custom-auth
+
+# 動画説明
+
+* https://www.youtube.com/watch?v=bM4_NSkcS-Y&t=675s
+
+# 参考コード　予約サイトシステム
+
+* https://github.com/haruyasu/django-booking
+
+# 動画説明
+
+* https://www.youtube.com/watch?v=Zu-cAgp7Hzw
+
+#　画面遷移 
 
 # ホーム画面
 
@@ -39,6 +53,3 @@
 # サーバー起動
 
 * python3 manage.py runserver
-
-
-* 
