@@ -15,6 +15,14 @@ main {
   flex: 1;
 }
 
+/* store */
+
+.storelist img {
+  height: 150px;
+  object-fit: contain;
+}
+
+/* profile */
 .card-profile {
   width: 700px;
   border: 0;
