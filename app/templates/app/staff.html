@@ -13,7 +13,7 @@
             <h3>{{ store_data.name }}店</h3>
             <hr />
             <p>住所：{{ store_data.address }}</p>
-            <p>TEL:{{ store_data.tel }}</p>
+            <p>TEL：{{ store_data.tel }}</p>
             <p>{{ store_data.description|linebreaksbr }}</p>
           </div>
         </div>
@@ -38,7 +38,7 @@
             {{ staff.user.first_name }} {{ staff.user.last_name }}
           </h5>
         </div>
-        <a class="stretched-link" href=""></a>
+        <a class="stretched-link" href="{% url 'calendar' staff.pk %}"></a>
       </div>
     </div>
     {% empty %}

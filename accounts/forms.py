@@ -19,3 +19,4 @@ class ProfileForm(forms.Form):
     last_name = forms.CharField(max_length=30, label='名')
     description = forms.CharField(label='自己紹介', widget=forms.Textarea(), required=False)
     image = forms.ImageField(required=False, )
+    
